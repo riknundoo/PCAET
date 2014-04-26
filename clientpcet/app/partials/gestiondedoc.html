@@ -1,0 +1,28 @@
+<div ng-show="donneeUtilisateur.role_utilisateur==1  || donneeUtilisateur.role_utilisateur==2 " class="row">
+   <div class="drop-box col-md-6 col-md-offset-3" ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class"
+        ng-show="dropSupported">Déplacez vos fichiers ICI</div>
+   <div  class="drop-box col-md-6 col-md-offset-3" ng-file-drop-available="dropSupported=true" 
+        ng-show="!dropSupported">L'envoi de fichier n'est pas disponible sur votre navigateur.</div><br />
+   <progressbar class="col-md-6 col-md-offset-3 progress-paddingf" animate="true" value="percentUplaod" type="success"><b>{{percentUplaod}}%</b></progressbar>
+</div>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+  	<div class="row">
+	  <div class="col-xs-3">
+	    <input class="form-control input-sm" ng-model="recherche_nom_document" ng-show="documents.length>0" type="text" placeholder="Recherche">
+	  </div>
+	</div>
+  </div>
+  
+  <table class="table" >
+        <tbody>
+          <tr ng-repeat="document in documents | filter:recherche_nom_document | orderBy:'id':reverse=true">
+            <td>{{document.nom_document}}</td>
+            <td ng-show="donneeUtilisateur.role_utilisateur==1  || donneeUtilisateur.role_utilisateur==2 "><button class="btn btn-default" ng-click="associer(document)" >Associer</button> </td>
+            <td><a class="btn btn-default" target="_blank" href="/serveurpcet/index.php/document/{{document.id}}"  >Télécharger</a> </td>
+            <td ng-show="donneeUtilisateur.role_utilisateur==1  || donneeUtilisateur.role_utilisateur==2 " ><button class="btn btn-default" ng-click="supprimerDocument(document)" >Supprimer</button> </td>
+          </tr>
+        </tbody>
+      </table>
+</div>

@@ -1,0 +1,76 @@
+<h1 ng-show="donneeUtilisateur.role_utilisateur==1 ">Utilisateurs</h1>
+ 
+<table ng-show="donneeUtilisateur.role_utilisateur==1 " class="table table-striped table-hover">
+      <thead>
+        <tr>
+        <td>
+     	 	<input class="form-control input-sm" ng-model="utilisateur.prenom_utilisateur" type="texte" placeholder="Prénom">
+     	 </td>
+     	<td>
+     	 	<input class="form-control input-sm" ng-model="utilisateur.nom_utilisateur" type="texte" placeholder="Nom">
+     	 </td>
+     	 <td>
+  			 <input class="form-control input-sm" ng-model="utilisateur.login_utilisateur" type="texte" placeholder="Identifiant">
+     	 </td>
+     	  <td>
+     	   <select class="form-control" ng-model="utilisateur.role_utilisateur" >
+       				<option value="">Selectionner un rôle</option> 
+       				<option value="Chef de projet">Chef de projet</option>        				
+       				<option value="Responsable action">Responsable de fiche action</option> 
+       				<option value="Visiteur">Visiteur</option> 
+    		</select>
+  		 </td>
+  		 <td/>
+  		 <td/>
+  		 <td/>
+  		 <td>
+  		 <button type="button" class="btn btn-primary pull-right" ng-click="ajouterUtilisateurModal()">Ajouter un utilisateur</button>
+  		 </td>
+  		 </tr>
+      
+        <tr>
+       	  <th style="cursor:pointer;" href="" ng-click="changerTri('prenom_utilisateur')">Prénom 
+        	  <span ng-show="sort== 'prenom_utilisateur' && !reverse"  class="glyphicon glyphicon-chevron-up"/> 
+        	  <span ng-show="sort== 'prenom_utilisateur' && reverse"  class="glyphicon glyphicon-chevron-down"/>
+        	  <span ng-show="sort != 'prenom_utilisateur'"/>
+       	  </th>
+          <th style="cursor:pointer;"  href="" ng-click="changerTri('nom_utilisateur')">Nom
+	          <span ng-show="sort== 'nom_utilisateur' && !reverse"  class="glyphicon glyphicon-chevron-up"/> 
+	          <span ng-show="sort== 'nom_utilisateur' && reverse"  class="glyphicon glyphicon-chevron-down"/>
+	       	  <span ng-show="sort != 'nom_utilisateur'"/>
+          </th>
+          <th style="cursor:pointer;"  href="" ng-click="changerTri('login_utilisateur')">Identifiant
+	          <span ng-show="sort== 'login_utilisateur' && !reverse"  class="glyphicon glyphicon-chevron-up"/> 
+	          <span ng-show="sort== 'login_utilisateur' && reverse"  class="glyphicon glyphicon-chevron-down"/>
+	       	  <span ng-show="sort != 'login_utilisateur'"/>
+          </th>
+          <th>Rôle</th>
+          <th>Actions associées</th>
+          <th/>
+          <th/>
+          <th/>
+        </tr>
+      
+      </thead>
+      <tbody>
+        <tr ng-repeat="utilisateur in listeUtilisateurs | filter:utilisateur | orderBy:'id':reverse=true">
+          <td ng-click="modifierUtilisateurModal(utilisateur)">{{utilisateur.prenom_utilisateur}}  </td>
+          <td ng-click="modifierUtilisateurModal(utilisateur)">{{utilisateur.nom_utilisateur}}</td>
+          <td ng-click="modifierUtilisateurModal(utilisateur)">{{utilisateur.login_utilisateur}}</td>
+          <td ng-click="modifierUtilisateurModal(utilisateur)">{{getRoleUtilisateur(utilisateur.role_utilisateur)}}</td>
+       	  <td>
+            <span class="associe-action"></span>
+            <h5 ng-show="utilisateur.role_utilisateur != 'Visiteur'"> <div style="cursor:pointer;" ng-click="associer(utilisateur)" >{{utilisateur.code_action}}<span class="glyphicon glyphicon-pencil pull-right"> </span></div> </h5>
+            <h2 ng-show="utilisateur.role_utilisateur == 'Visiteur'"></h2>
+            
+          </td>
+           
+          <td>
+			 <button type="button" class="btn btn-warning pull-right" ng-click="reinitialiserMotdepasse(utilisateur)">Réinitialiser mot de passe</button> 
+		  </td>
+          <td>
+			 <button type="button" class="btn btn-danger pull-right" ng-click="open(utilisateur)">Supprimer</button> 
+		  </td>
+       
+      </tbody> 
+</table>
